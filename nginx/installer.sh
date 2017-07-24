@@ -117,7 +117,8 @@ nginxSetup()
     && git clone https://github.com/bagder/libbrotli \
     && git clone https://github.com/google/ngx_brotli \
     && git clone https://github.com/nbs-system/naxsi.git \
-    && git clone https://github.com/openresty/set-misc-nginx-module.git
+    && git clone https://github.com/openresty/set-misc-nginx-module.git \
+    && git clone https://github.com/FRiCKLE/ngx_cache_purge.git
 
     #+------------------------------------------------------------------------+
     #+ Google Pagespeed for NGINX
@@ -169,7 +170,7 @@ nginxSetup()
     #+------------------------------------------------------------------------+
     #+ This process may take a while depending on CPU availbility and speed.
     #+------------------------------------------------------------------------+
-    openssl dhparam -out /etc/nginx/ssl/dhparam.pem ${dhparamBits}
+    openssl dhparam -dsaparam  -out /etc/nginx/ssl/dhparam.pem ${dhparamBits}
 }
 
 nginxCompile()
@@ -230,6 +231,7 @@ nginxCompile()
                         --add-module=/usr/local/src/github/headers-more-nginx-module \
                         --add-module=/usr/local/src/github/set-misc-nginx-module \
                         --add-module=/usr/local/src/github/ngx_pagespeed-${pagespeedVers}-beta \
+                        --add-module=/usr/local/src/github/ngx_cache_purge \
     && make -j ${cpuCount} \
     && make install
 }
